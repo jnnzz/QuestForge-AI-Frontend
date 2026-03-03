@@ -293,30 +293,13 @@ const BossArena = ({ onBossModeChange }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className={`relative rounded-2xl overflow-hidden ${
-          isActive ? 'border-4 border-red-500 shadow-2xl' : 'border-2 border-gray-700'
+          isActive ? 'border-2 border-gray-600 shadow-xl' : 'border-2 border-gray-700'
         }`}
         style={{
-          boxShadow: isActive ? '0 0 40px rgba(239, 68, 68, 0.6)' : 'none',
+          boxShadow: isActive ? '0 0 20px rgba(0, 0, 0, 0.5)' : 'none',
         }}
       >
-        {/* Pulsing Border Animation */}
-        {isActive && (
-          <motion.div
-            animate={{
-              opacity: [0.5, 1, 0.5],
-              scale: [1, 1.02, 1],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute inset-0 border-4 border-red-500 rounded-2xl pointer-events-none"
-            style={{
-              boxShadow: '0 0 60px rgba(239, 68, 68, 0.8), inset 0 0 40px rgba(239, 68, 68, 0.3)',
-            }}
-          />
-        )}
+
 
         <div className="relative bg-quest-slate p-6">
           {!isActive ? (

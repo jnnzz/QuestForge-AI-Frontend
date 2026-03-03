@@ -99,9 +99,11 @@ const LandingPage = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="QuestForge Logo" 
+                className="w-10 h-10 rounded-xl object-contain"
+              />
               <span className="text-xl font-bold text-white">QuestForge AI</span>
             </div>
 
@@ -468,9 +470,11 @@ const LandingPage = () => {
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
 
             <div className="relative">
-              <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-cyan-500/30">
-                <Zap className="w-10 h-10 text-white" />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="QuestForge Logo" 
+                className="w-20 h-20 rounded-2xl object-contain mx-auto mb-6 drop-shadow-xl"
+              />
               
               <h2 className="text-4xl font-bold text-white mb-4">
                 Ready to Start Your Quest?
@@ -523,9 +527,11 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="QuestForge Logo" 
+                className="w-10 h-10 rounded-xl object-contain"
+              />
               <span className="text-xl font-bold text-white">QuestForge AI</span>
             </div>
 

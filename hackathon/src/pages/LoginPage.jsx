@@ -85,10 +85,11 @@ const Login = () => {
             >
               <div className="inline-block p-4 bg-gradient-to-br from-slate-600 to-blue-700 rounded-2xl mb-4"
                    style={{ boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' }}>
-                <svg className="w-16 h-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                <img 
+                  src="/logo.png" 
+                  alt="QuestForge Logo" 
+                  className="w-16 h-16 object-contain"
+                />
               </div>
               <h1 className="text-4xl font-bold text-white mb-2">QuestForge AI</h1>
               <p className="text-gray-400">Level up your learning journey</p>

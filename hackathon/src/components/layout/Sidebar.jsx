@@ -46,9 +46,11 @@ const Sidebar = () => {
           transition={{ delay: 0.2, duration: 0.4 }}
           className="flex items-center space-x-3"
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-slate-600 to-blue-700 rounded-lg flex items-center justify-center">
-            <Sword className="w-6 h-6 text-white" />
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="QuestForge Logo" 
+            className="w-10 h-10 rounded-lg object-contain"
+          />
           <div>
             <h1 className="text-xl font-bold text-white">QuestForge</h1>
             <p className="text-xs text-blue-400">AI Learning Platform</p>
@@ -101,7 +103,7 @@ const Sidebar = () => {
       >
         <div className="bg-gradient-to-br from-quest-dark to-gray-900 rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-400">Daily Progress</span>
+            <span className="text-xs text-gray-400">Weekly Progress</span>
             <span className="text-xs text-blue-400 font-bold">75%</span>
           </div>
           <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
