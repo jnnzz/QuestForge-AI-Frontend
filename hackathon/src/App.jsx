@@ -62,7 +62,7 @@ function AppContent() {
       <Route path="/login/*" element={
         <MainLayout isBossMode={isBossMode}>
           <Routes>
-            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="dashboard" element={<DashboardPage selectedField={selectedField} />} />
             <Route path="syllabus" element={<SyllabusPage />} />
             <Route path="quests" element={<QuestsPage selectedField={selectedField} />} />
             <Route path="bossArena" element={<BossArenaPage onBossModeChange={handleBossModeChange} />} />

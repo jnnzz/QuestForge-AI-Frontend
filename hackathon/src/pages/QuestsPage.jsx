@@ -125,20 +125,24 @@ const QuestsPage = ({ selectedField }) => {
               </div>
               <div>
                 <h1 className="text-4xl font-bold text-white">{webDevRoadmap.title}</h1>
-                <p className="text-blue-400 font-semibold">{webDevRoadmap.subtitle}</p>
+                {/* <p className="text-blue-400 font-semibold">{webDevRoadmap.subtitle}</p> */}
               </div>
             </div>
-            <div className="flex items-center space-x-2 text-gray-400">
+            {/* <div className="flex items-center space-x-2 text-gray-400">
               <Calendar className="w-4 h-4" />
               <span className="text-sm">{webDevRoadmap.duration}</span>
-            </div>
+            </div> */}
           </div>
           
           <div className="text-right">
-            <div className="px-6 py-3 bg-quest-slate rounded-xl border border-blue-500/50 shadow-lg">
+              <div className="flex items-center space-x-2 text-gray-400">
+              <Calendar className="w-4 h-4" />
+              <span className="text-sm">{webDevRoadmap.duration}</span>
+            </div>
+            {/* <div className="px-6 py-3 bg-quest-slate rounded-xl border border-blue-500/50 shadow-lg">
               <p className="text-sm text-gray-400 mb-1">Total Quests</p>
               <p className="text-3xl font-bold text-white">{webDevRoadmap.quests.length}</p>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -149,7 +153,7 @@ const QuestsPage = ({ selectedField }) => {
           transition={{ delay: 0.2 }}
           className="bg-gradient-to-r from-quest-slate to-gray-800 rounded-xl p-6 border border-gray-700"
         >
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-gray-300 leading-relaxed text-left">
             <span className="text-blue-400 font-semibold">Your Learning Journey:</span> This roadmap will take you from zero to hero in web development. Each quest builds upon the previous one, creating a solid foundation for your career in tech. Complete all quests to unlock advanced challenges.
           </p>
         </motion.div>
@@ -171,21 +175,24 @@ const QuestsPage = ({ selectedField }) => {
               <div className="bg-quest-slate rounded-2xl border border-gray-700 overflow-hidden shadow-2xl hover:border-slate-500 transition-all">
                 {/* Quest Header */}
                 <div className={`relative bg-gradient-to-r ${quest.color} p-6`}>
-                  <div className="relative z-10 flex items-start justify-between">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
-                        <QuestIcon className="w-7 h-7 text-white" />
+                  <div className="relative z-10 flex items-center justify-between">
+                    {/* Left Side: Icon + Quest Number + Week */}
+                    <div className="flex items-center space-x-4">
+                      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <QuestIcon className="w-8 h-8 text-white" />
                       </div>
-                      <div>
-                        <div className="flex items-center space-x-3 mb-2">
-                          <span className="text-3xl font-bold text-white">Quest {quest.id}</span>
-                          <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold text-white">
-                            {quest.weeks}
-                          </span>
-                        </div>
-                        <h2 className="text-2xl font-bold text-white mb-1">{quest.title}</h2>
-                        <p className="text-white/90 font-medium">{quest.tech}</p>
+                      <div className="flex items-center space-x-3">
+                        <span className="text-2xl font-bold text-white">Quest {quest.id}</span>
+                        <span className="px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold text-white">
+                          {quest.weeks}
+                        </span>
                       </div>
+                    </div>
+                    
+                    {/* Right Side: Title + Tech */}
+                    <div className="text-right">
+                      <h2 className="text-3xl font-bold text-white mb-2">{quest.title}</h2>
+                      <p className="text-white/90 font-semibold text-lg">{quest.tech}</p>
                     </div>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
