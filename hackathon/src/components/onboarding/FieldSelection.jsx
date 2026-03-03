@@ -5,7 +5,7 @@ import { fields } from '../../data/fields';
 const FieldSelection = ({ onFieldSelect }) => {
   
   const handleFieldSelect = (field) => {
-    // Set default quest to 1 for users who haven't uploaded syllabus
+    // Save field selection locally (no backend needed)
     localStorage.setItem('currentQuest', '1');
     localStorage.setItem('syllabusUploaded', 'false');
     

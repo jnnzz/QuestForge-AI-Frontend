@@ -58,17 +58,20 @@ const SyllabusSync = ({ onAnalyze }) => {
     setSelectedFile(null);
   };
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (selectedFile) {
       setIsScanning(true);
-      // Simulate PDF analysis time
-      setTimeout(() => {
-        setIsScanning(false);
-        setHasUsedFreeTrial(true); // Mark free trial as used
-        if (onAnalyze) {
-          onAnalyze(selectedFile);
-        }
-      }, 3000);
+      
+      // Simulate PDF analysis time (no backend needed)
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setIsScanning(false);
+      setHasUsedFreeTrial(true); // Mark free trial as used
+      
+      // Call parent callback with the file
+      if (onAnalyze) {
+        onAnalyze(selectedFile, { syllabusId: 'demo-' + Date.now() });
+      }
     }
   };
 
