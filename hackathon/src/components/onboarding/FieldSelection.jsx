@@ -3,6 +3,15 @@ import { Zap } from 'lucide-react';
 import { fields } from '../../data/fields';
 
 const FieldSelection = ({ onFieldSelect }) => {
+  
+  const handleFieldSelect = (field) => {
+    // Set default quest to 1 for users who haven't uploaded syllabus
+    localStorage.setItem('currentQuest', '1');
+    localStorage.setItem('syllabusUploaded', 'false');
+    
+    // Call parent handler
+    onFieldSelect(field);
+  };
 
   return (
     <div className="w-full max-w-7xl mx-auto p-8">
@@ -24,7 +33,7 @@ const FieldSelection = ({ onFieldSelect }) => {
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-neon-blue to-electric-blue rounded-full mb-6"
+            className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-slate-600 to-blue-700 rounded-full mb-6"
             style={{
               boxShadow: '0 0 60px rgba(59, 130, 246, 0.6)',
             }}
@@ -59,8 +68,8 @@ const FieldSelection = ({ onFieldSelect }) => {
                 boxShadow: '0 20px 60px rgba(59, 130, 246, 0.4)',
               }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => onFieldSelect(field)}
-              className="relative bg-quest-slate rounded-2xl p-8 border-2 border-gray-700 hover:border-neon-blue transition-all duration-300 text-left overflow-hidden group"
+              onClick={() => handleFieldSelect(field)}
+              className="relative bg-quest-slate rounded-2xl p-8 border-2 border-gray-700 hover:border-blue-500 transition-all duration-300 text-left overflow-hidden group"
             >
               {/* Background Gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${field.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
@@ -72,7 +81,7 @@ const FieldSelection = ({ onFieldSelect }) => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-neon-blue transition-colors">
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                   {field.name}
                 </h3>
 
@@ -101,7 +110,7 @@ const FieldSelection = ({ onFieldSelect }) => {
                 {/* Duration */}
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500">Duration</span>
-                  <span className="text-neon-blue font-semibold">{field.duration}</span>
+                  <span className="text-blue-400 font-semibold">{field.duration}</span>
                 </div>
 
                 {/* Arrow indicator */}
@@ -110,7 +119,7 @@ const FieldSelection = ({ onFieldSelect }) => {
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <div className="w-8 h-8 bg-neon-blue rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-xl">→</span>
                   </div>
                 </motion.div>

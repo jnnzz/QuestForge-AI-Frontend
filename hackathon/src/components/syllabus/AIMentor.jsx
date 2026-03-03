@@ -72,7 +72,7 @@ const AIMentor = ({ suggestions = [] }) => {
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6]/20 via-transparent to-neon-purple/20 pointer-events-none"
+            className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6]/20 via-transparent to-purple-500/20 pointer-events-none"
           />
 
           {/* Close Button */}
@@ -136,7 +136,7 @@ const AIMentor = ({ suggestions = [] }) => {
                     <p className="text-xs text-gray-400 mb-1">Recommended Quest</p>
                     <p className="text-white font-semibold text-sm">{currentSuggestion.questTitle}</p>
                   </div>
-                  <span className="px-2 py-1 bg-neon-purple/20 text-neon-purple text-xs font-bold rounded border border-neon-purple/50">
+                  <span className="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold rounded border border-purple-500/50">
                     BONUS
                   </span>
                 </div>
