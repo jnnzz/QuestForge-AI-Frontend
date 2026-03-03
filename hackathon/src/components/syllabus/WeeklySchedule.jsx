@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, FileSpreadsheet, Copy, ChevronDown, ChevronUp, CheckCircle, Circle, Sword } from 'lucide-react';
+import { Calendar, FileSpreadsheet, Copy, ChevronDown, ChevronUp, CheckCircle, Circle, Sword, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getQuestPlan } from '../../api/syllabusApi';
 
 const WeeklySchedule = ({ scheduleData }) => {
   const [expandedDay, setExpandedDay] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [backendSchedule, setBackendSchedule] = useState(null);
   const navigate = useNavigate();
+
+  // Fetch schedule from backend on mount
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      setLoading(true);
+      try {
+        const result = await getQuestPlan();
+        if (result.success && result.data) {
+          setBackendSchedule(result.data);
+          console.log('Quest plan loaded from backend:', result.data);
+        }
+      } catch (error) {
+        console.log('Using default schedule (backend unavailable)');
+      }
+      setLoading(false);
+    };
+    fetchSchedule();
+  }, []);
 
   // Sample schedule data structure - 4 weeks for 1 month
   const defaultSchedule = [
@@ -322,6 +343,20 @@ const WeeklySchedule = ({ scheduleData }) => {
     alert('Exporting to Google Sheets... (Demo mode)');
   };
 
+  // Show loading state
+  if (loading) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="mt-8 flex items-center justify-center py-12"
+      >
+        <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+        <span className="ml-3 text-gray-400">Loading schedule...</span>
+      </motion.div>
+    );
+  }
+
   const handleCopySchedule = () => {
     // Create text representation for all weeks
     const scheduleArray = Array.isArray(schedule) ? schedule : [schedule];
@@ -405,6 +440,76 @@ const WeeklySchedule = ({ scheduleData }) => {
           </div>
         </div>
       </div>
+
+      {/* Backend Schedule Summary (if available) */}
+      {backendSchedule?.weeklyPlan && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-quest-slate rounded-xl border border-cyan-500/30 p-6 mb-6"
+        >
+          <h3 className="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+            <CheckCircle className="w-5 h-5 text-cyan-400" />
+            <span>Your Personalized Schedule</span>
+          </h3>
+          
+          {backendSchedule.studySummary && (
+            <p className="text-gray-300 mb-4 p-3 bg-quest-dark/50 rounded-lg border border-gray-700">
+              {backendSchedule.studySummary}
+            </p>
+          )}
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Classes */}
+            <div className="bg-blue-500/10 rounded-lg p-4 border border-blue-500/30">
+              <h4 className="text-blue-400 font-semibold mb-2">📚 Classes</h4>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {backendSchedule.weeklyPlan.classes?.slice(0, 5).map((cls, i) => (
+                  <div key={i} className="text-sm text-gray-300 flex justify-between">
+                    <span>{cls.day}: {cls.subject || 'Class'}</span>
+                    <span className="text-gray-500">{cls.startTime}-{cls.endTime}</span>
+                  </div>
+                ))}
+                {backendSchedule.weeklyPlan.classes?.length > 5 && (
+                  <p className="text-xs text-gray-500">+{backendSchedule.weeklyPlan.classes.length - 5} more</p>
+                )}
+              </div>
+            </div>
+            
+            {/* Quest Time */}
+            <div className="bg-emerald-500/10 rounded-lg p-4 border border-emerald-500/30">
+              <h4 className="text-emerald-400 font-semibold mb-2">⚔️ Quest Time</h4>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {backendSchedule.weeklyPlan.questSlots?.slice(0, 5).map((slot, i) => (
+                  <div key={i} className="text-sm text-gray-300 flex justify-between">
+                    <span>{slot.day}: {slot.assignedQuest}</span>
+                    <span className="text-gray-500">{slot.startTime}-{slot.endTime}</span>
+                  </div>
+                ))}
+                {backendSchedule.weeklyPlan.questSlots?.length > 5 && (
+                  <p className="text-xs text-gray-500">+{backendSchedule.weeklyPlan.questSlots.length - 5} more</p>
+                )}
+              </div>
+            </div>
+            
+            {/* Dead Zones */}
+            <div className="bg-red-500/10 rounded-lg p-4 border border-red-500/30">
+              <h4 className="text-red-400 font-semibold mb-2">🚫 Avoid Times</h4>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {backendSchedule.weeklyPlan.deadZones?.slice(0, 5).map((zone, i) => (
+                  <div key={i} className="text-sm text-gray-300 flex justify-between">
+                    <span>{zone.day}</span>
+                    <span className="text-gray-500">{zone.startTime}-{zone.endTime}</span>
+                  </div>
+                ))}
+                {(!backendSchedule.weeklyPlan.deadZones || backendSchedule.weeklyPlan.deadZones.length === 0) && (
+                  <p className="text-xs text-gray-500">No dead zones detected</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Render Each Week */}
       {(Array.isArray(schedule) ? schedule : [schedule]).map((weekData, weekIndex) => (

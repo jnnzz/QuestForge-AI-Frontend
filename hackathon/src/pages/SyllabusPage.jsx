@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import SyllabusSync from '../components/syllabus/SyllabusSync';
 import WeeklySchedule from '../components/syllabus/WeeklySchedule';
-import AIMentor from '../components/syllabus/AIMentor';
 
 const SyllabusSyncPage = () => {
   const [scheduleGenerated, setScheduleGenerated] = useState(true); // Show by default
@@ -33,9 +32,6 @@ const SyllabusSyncPage = () => {
 
       {/* Weekly Schedule - Show sample data by default */}
       {scheduleGenerated && <WeeklySchedule />}
-
-      {/* AI Mentor - Floating Assistant */}
-      <AIMentor />
     </div>
   );
 };

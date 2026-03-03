@@ -52,19 +52,31 @@ export const loginUser = async (email, password) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       }
     );
 
     if (response.status === 200) {
-      const { token, user } = response.data;
+      const { user } = response.data;
       
-      // Store token in localStorage
-      if (token) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("userEmail", user.email);
-        localStorage.setItem("userName", user.name);
-        localStorage.setItem("isAuthenticated", "true");
+      // Store user data in localStorage
+      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("userEmail", user.email);
+      localStorage.setItem("userName", user.name || user.email.split('@')[0]);
+      localStorage.setItem("userId", user.id);
+      
+      // Store profile/RPG stats if available
+      if (user.profile) {
+        localStorage.setItem("userLevel", user.profile.level || 1);
+        localStorage.setItem("userXp", user.profile.xp || 0);
+        localStorage.setItem("userHp", user.profile.hp || 100);
+        localStorage.setItem("userBadge", user.profile.badge || 'WARRIOR');
       }
+      
+      // Store academic info
+      if (user.academicYear) localStorage.setItem("academicYear", user.academicYear);
+      if (user.academicLevel) localStorage.setItem("academicLevel", user.academicLevel);
+      if (user.path && user.path !== 'NONE') localStorage.setItem("userPath", user.path);
       
       showToast("success", response.data.message || "Login successful!");
       return { success: true, data: response.data };
@@ -73,12 +85,12 @@ export const loginUser = async (email, password) => {
       return { success: false };
     }
   } catch (error) {
+    console.error("Login Error:", error);
     if (error.response && error.response.data) {
       showToast("error", error.response.data.message || "Invalid credentials");
     } else {
       showToast("error", "Network error. Please try again.");
     }
-    console.error("Login Error:", error);
     return { success: false };
   }
 };

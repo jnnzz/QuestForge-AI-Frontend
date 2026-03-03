@@ -34,33 +34,27 @@ export const uploadSyllabus = async (file) => {
 
     // Create FormData for multipart/form-data upload
     const formData = new FormData();
-    formData.append('syllabus', file);
+    formData.append('schedule', file);
 
-    const token = getToken();
-    const headers = {
-      'Content-Type': 'multipart/form-data',
-    };
-
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-
-    // Upload file to backend
+    // Upload file to backend (uses cookies for auth)
     const response = await axios.post(
-      `${backendConnection()}/api/syllabus/upload`,
+      `${backendConnection()}/api/schedule/upload`,
       formData,
-      { headers }
+      { 
+        headers: { 'Content-Type': 'multipart/form-data' },
+        withCredentials: true 
+      }
     );
 
-    if (response.data.success) {
-      showToast('success', 'Syllabus uploaded and analyzed successfully!');
+    if (response.data) {
+      showToast('success', response.data.message || 'Schedule uploaded and parsed successfully!');
       return {
         success: true,
-        data: response.data.data,
+        data: response.data,
         message: response.data.message || 'Upload successful'
       };
     } else {
-      showToast('error', response.data.message || 'Failed to upload syllabus');
+      showToast('error', response.data.message || 'Failed to upload schedule');
       return {
         success: false,
         message: response.data.message || 'Upload failed'
@@ -74,6 +68,76 @@ export const uploadSyllabus = async (file) => {
       success: false,
       message: errorMessage,
       error: error.response?.data
+    };
+  }
+};
+
+/**
+ * Get user's active schedule
+ * @returns {Promise<Object>} - Parsed schedule with class blocks
+ */
+export const getMySchedule = async () => {
+  try {
+    const response = await axios.get(
+      `${backendConnection()}/api/schedule/my`,
+      { 
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true 
+      }
+    );
+
+    if (response.data) {
+      return {
+        success: true,
+        data: response.data,
+        message: 'Schedule loaded successfully'
+      };
+    } else {
+      return {
+        success: false,
+        message: 'No schedule found'
+      };
+    }
+  } catch (error) {
+    console.error('Get schedule error:', error);
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Failed to fetch schedule'
+    };
+  }
+};
+
+/**
+ * Get quest plan with schedule mapped to quests
+ * @returns {Promise<Object>} - Quest plan with classes, quest slots, and dead zones
+ */
+export const getQuestPlan = async () => {
+  try {
+    const response = await axios.get(
+      `${backendConnection()}/api/schedule/quest-plan`,
+      { 
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true 
+      }
+    );
+
+    if (response.data) {
+      return {
+        success: true,
+        data: response.data,
+        message: response.data.message || 'Quest plan loaded'
+      };
+    } else {
+      return {
+        success: false,
+        message: 'No quest plan found'
+      };
+    }
+  } catch (error) {
+    console.error('Get quest plan error:', error);
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Failed to fetch quest plan'
     };
   }
 };

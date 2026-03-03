@@ -20,53 +20,65 @@ import {
 const Dashboard = ({ selectedField }) => {
   const navigate = useNavigate();
   
-  // Leaderboard data organized by field
+  // Get user data from localStorage
+  const userName = localStorage.getItem('userName') || 'Adventurer';
+  const userLevel = parseInt(localStorage.getItem('userLevel')) || 1;
+  const userXp = parseInt(localStorage.getItem('userXp')) || 0;
+  
+  // Leaderboard data organized by field - dynamically inject current user
+  const createLeaderboard = (others, userRank) => {
+    const currentUser = { 
+      id: 'current', 
+      name: userName, 
+      xp: userXp, 
+      level: userLevel, 
+      rank: userRank, 
+      isCurrentUser: true, 
+      avatar: 'https://i.pravatar.cc/150?img=68' 
+    };
+    return [...others.slice(0, userRank - 1), currentUser, ...others.slice(userRank - 1)];
+  };
+
   const leaderboardData = {
-    'web-dev': [
-      { id: 1, name: 'Alex Chen', xp: 52480, level: 47, rank: 1 },
-      { id: 2, name: 'Sarah Kim', xp: 51230, level: 46, rank: 2 },
-      { id: 3, name: 'Marcus Johnson', xp: 48920, level: 45, rank: 3 },
-      { id: 4, name: 'Emily Rodriguez', xp: 47350, level: 44, rank: 4 },
-      { id: 5, name: 'John Doe', xp: 47350, level: 42, rank: 5, isCurrentUser: true },
-      { id: 6, name: 'David Park', xp: 45120, level: 41, rank: 6 },
-      { id: 7, name: 'Sophie Zhang', xp: 43890, level: 40, rank: 7 },
-      { id: 8, name: 'James Wilson', xp: 42150, level: 39, rank: 8 },
-    ],
-    'data-science': [
-      { id: 1, name: 'Dr. Lisa Wang', xp: 68920, level: 58, rank: 1 },
-      { id: 2, name: 'Robert Chen', xp: 65340, level: 56, rank: 2 },
-      { id: 3, name: 'Maya Patel', xp: 61230, level: 54, rank: 3 },
-      { id: 4, name: 'John Doe', xp: 47350, level: 42, rank: 4, isCurrentUser: true },
-      { id: 5, name: 'Kevin Liu', xp: 45890, level: 41, rank: 5 },
-    ],
-    'mobile-dev': [
-      { id: 1, name: 'Nina Patel', xp: 59320, level: 52, rank: 1 },
-      { id: 2, name: 'Tom Anderson', xp: 56780, level: 50, rank: 2 },
-      { id: 3, name: 'Rachel Green', xp: 53210, level: 48, rank: 3 },
-      { id: 4, name: 'John Doe', xp: 47350, level: 42, rank: 4, isCurrentUser: true },
-      { id: 5, name: 'Mike Ross', xp: 44120, level: 40, rank: 5 },
-    ],
-    'cybersecurity': [
-      { id: 1, name: 'Eve Martinez', xp: 71450, level: 61, rank: 1 },
-      { id: 2, name: 'Ryan Black', xp: 68920, level: 59, rank: 2 },
-      { id: 3, name: 'Alice Cooper', xp: 64310, level: 56, rank: 3 },
-      { id: 4, name: 'John Doe', xp: 47350, level: 42, rank: 4, isCurrentUser: true },
-      { id: 5, name: 'Bob White', xp: 42890, level: 39, rank: 5 },
-    ],
-    'cloud-devops': [
-      { id: 1, name: 'Carlos Santos', xp: 63210, level: 55, rank: 1 },
-      { id: 2, name: 'Jennifer Lee', xp: 60450, level: 53, rank: 2 },
-      { id: 3, name: 'Ahmed Hassan', xp: 57890, level: 51, rank: 3 },
-      { id: 4, name: 'John Doe', xp: 47350, level: 42, rank: 4, isCurrentUser: true },
-      { id: 5, name: 'Linda Brown', xp: 45120, level: 41, rank: 5 },
-    ],
-    'game-dev': [
-      { id: 1, name: 'Lucas Wright', xp: 69850, level: 60, rank: 1 },
-      { id: 2, name: 'Mia Taylor', xp: 66320, level: 57, rank: 2 },
-      { id: 3, name: 'Ethan Moore', xp: 62140, level: 54, rank: 3 },
-      { id: 4, name: 'John Doe', xp: 47350, level: 42, rank: 4, isCurrentUser: true },
-      { id: 5, name: 'Olivia Davis', xp: 43780, level: 40, rank: 5 },
-    ],
+    'web-dev': createLeaderboard([
+      { id: 1, name: 'Alex Chen', xp: 52480, level: 47, rank: 1, avatar: 'https://i.pravatar.cc/150?img=12' },
+      { id: 2, name: 'Sarah Kim', xp: 51230, level: 46, rank: 2, avatar: 'https://i.pravatar.cc/150?img=5' },
+      { id: 3, name: 'Marcus Johnson', xp: 48920, level: 45, rank: 3, avatar: 'https://i.pravatar.cc/150?img=53' },
+      { id: 4, name: 'Emily Rodriguez', xp: 47350, level: 44, rank: 4, avatar: 'https://i.pravatar.cc/150?img=47' },
+      { id: 6, name: 'David Park', xp: 45120, level: 41, rank: 6, avatar: 'https://i.pravatar.cc/150?img=14' },
+      { id: 7, name: 'Sophie Zhang', xp: 43890, level: 40, rank: 7, avatar: 'https://i.pravatar.cc/150?img=32' },
+      { id: 8, name: 'James Wilson', xp: 42150, level: 39, rank: 8, avatar: 'https://i.pravatar.cc/150?img=59' },
+    ], 5),
+    'data-science': createLeaderboard([
+      { id: 1, name: 'Dr. Lisa Wang', xp: 68920, level: 58, rank: 1, avatar: 'https://i.pravatar.cc/150?img=26' },
+      { id: 2, name: 'Robert Chen', xp: 65340, level: 56, rank: 2, avatar: 'https://i.pravatar.cc/150?img=11' },
+      { id: 3, name: 'Maya Patel', xp: 61230, level: 54, rank: 3, avatar: 'https://i.pravatar.cc/150?img=23' },
+      { id: 5, name: 'Kevin Liu', xp: 45890, level: 41, rank: 5, avatar: 'https://i.pravatar.cc/150?img=17' },
+    ], 4),
+    'mobile-dev': createLeaderboard([
+      { id: 1, name: 'Nina Patel', xp: 59320, level: 52, rank: 1, avatar: 'https://i.pravatar.cc/150?img=44' },
+      { id: 2, name: 'Tom Anderson', xp: 56780, level: 50, rank: 2, avatar: 'https://i.pravatar.cc/150?img=60' },
+      { id: 3, name: 'Rachel Green', xp: 53210, level: 48, rank: 3, avatar: 'https://i.pravatar.cc/150?img=49' },
+      { id: 5, name: 'Mike Ross', xp: 44120, level: 40, rank: 5, avatar: 'https://i.pravatar.cc/150?img=18' },
+    ], 4),
+    'cybersecurity': createLeaderboard([
+      { id: 1, name: 'Eve Martinez', xp: 71450, level: 61, rank: 1, avatar: 'https://i.pravatar.cc/150?img=41' },
+      { id: 2, name: 'Ryan Black', xp: 68920, level: 59, rank: 2, avatar: 'https://i.pravatar.cc/150?img=57' },
+      { id: 3, name: 'Alice Cooper', xp: 64310, level: 56, rank: 3, avatar: 'https://i.pravatar.cc/150?img=45' },
+      { id: 5, name: 'Bob White', xp: 42890, level: 39, rank: 5, avatar: 'https://i.pravatar.cc/150?img=15' },
+    ], 4),
+    'cloud-devops': createLeaderboard([
+      { id: 1, name: 'Carlos Santos', xp: 63210, level: 55, rank: 1, avatar: 'https://i.pravatar.cc/150?img=33' },
+      { id: 2, name: 'Jennifer Lee', xp: 60450, level: 53, rank: 2, avatar: 'https://i.pravatar.cc/150?img=38' },
+      { id: 3, name: 'Ahmed Hassan', xp: 57890, level: 51, rank: 3, avatar: 'https://i.pravatar.cc/150?img=51' },
+      { id: 5, name: 'Linda Brown', xp: 45120, level: 41, rank: 5, avatar: 'https://i.pravatar.cc/150?img=31' },
+    ], 4),
+    'game-dev': createLeaderboard([
+      { id: 1, name: 'Lucas Wright', xp: 69850, level: 60, rank: 1, avatar: 'https://i.pravatar.cc/150?img=52' },
+      { id: 2, name: 'Mia Taylor', xp: 66320, level: 57, rank: 2, avatar: 'https://i.pravatar.cc/150?img=25' },
+      { id: 3, name: 'Ethan Moore', xp: 62140, level: 54, rank: 3, avatar: 'https://i.pravatar.cc/150?img=56' },
+      { id: 5, name: 'Olivia Davis', xp: 43780, level: 40, rank: 5, avatar: 'https://i.pravatar.cc/150?img=20' },
+    ], 4),
   };
 
   const fieldName = selectedField?.name || 'Web Development';
@@ -162,7 +174,7 @@ const Dashboard = ({ selectedField }) => {
 
   // Quick stats
   const quickStats = [
-    { icon: Zap, label: 'Total XP', value: '2,450', color: 'text-yellow-400' },
+    { icon: Zap, label: 'Total XP', value: userXp.toLocaleString(), color: 'text-yellow-400' },
     { icon: CheckCircle, label: 'Quests Done', value: '2', color: 'text-emerald-400' },
     { icon: Shield, label: 'Bosses Defeated', value: '0', color: 'text-red-400' },
     { icon: Clock, label: 'Study Streak', value: '3 days', color: 'text-cyan-400' },
@@ -201,7 +213,7 @@ const Dashboard = ({ selectedField }) => {
       >
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 text-left">Welcome back, Adventurer!</h1>
+            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 text-left">Welcome back, {userName}!</h1>
             <p className="text-gray-400 text-left">Ready to continue your learning journey in {fieldName}?</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 bg-quest-slate rounded-xl px-4 py-3 lg:px-6 lg:py-4 border border-gray-700">
@@ -349,10 +361,14 @@ const Dashboard = ({ selectedField }) => {
                   </div>
 
                   {/* Avatar */}
-                  <div className={`flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br ${
-                    user.isCurrentUser ? 'from-blue-500 to-blue-600' : getAvatarColor(user.rank)
-                  } shadow-lg`}>
-                    <span className="text-white font-bold text-sm">{getInitials(user.name)}</span>
+                  <div className={`w-12 h-12 rounded-lg overflow-hidden shadow-lg ring-2 ${
+                    user.isCurrentUser ? 'ring-blue-500' : user.rank <= 3 ? 'ring-amber-500/50' : 'ring-gray-600'
+                  }`}>
+                    <img 
+                      src={user.avatar} 
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   {/* User Info */}

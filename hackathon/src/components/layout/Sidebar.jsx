@@ -26,7 +26,7 @@ const Sidebar = () => {
     { id: 'syllabus', path: '/login/syllabus', icon: BookOpen, label: 'Syllabus Sync' },
     { id: 'quests', path: '/login/quests', icon: Sword, label: 'Quests' },
     { id: 'arena', path: '/login/bossArena', icon: Trophy, label: 'Boss Arena' },
-    { id: 'passport', path: '/login/skill', icon: Award, label: 'Skill Passport' },
+    // { id: 'passport', path: '/login/skill', icon: Award, label: 'Skill Passport' },
   ];
 
   const isActive = (path) => location.pathname === path;
