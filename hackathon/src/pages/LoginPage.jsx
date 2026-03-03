@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import FieldSelection from '../components/onboarding/FieldSelection';
+import { loginUser } from '../api/authApi';
 
 const Login = () => {
   const [showFieldSelection, setShowFieldSelection] = useState(false);
@@ -40,24 +41,20 @@ const Login = () => {
 
     setIsLoading(true);
     
-    // Simulate loading
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Set authentication (no backend needed)
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('token', 'demo-token-12345');
-    localStorage.setItem('userName', formData.email.split('@')[0]);
-    localStorage.setItem('userEmail', formData.email);
+    // Call backend login API
+    const result = await loginUser(formData.email, formData.password);
     
     setIsLoading(false);
     
-    // Check if field is already selected
-    const savedFieldId = localStorage.getItem('selectedFieldId');
-    if (savedFieldId) {
-      navigate('/login/dashboard');
-    } else {
-      // Show field selection modal
-      setShowFieldSelection(true);
+    if (result.success) {
+      // Check if field is already selected
+      const savedFieldId = localStorage.getItem('selectedFieldId');
+      if (savedFieldId) {
+        navigate('/login/dashboard');
+      } else {
+        // Show field selection modal
+        setShowFieldSelection(true);
+      }
     }
   };
 

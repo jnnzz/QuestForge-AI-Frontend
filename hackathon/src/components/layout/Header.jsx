@@ -2,10 +2,32 @@ import { motion } from 'framer-motion';
 import { Zap } from 'lucide-react';
 
 const Header = () => {
-  const userLevel = 42;
-  const currentXP = 7850;
-  const nextLevelXP = 10000;
-  const xpPercentage = (currentXP / nextLevelXP) * 100;
+  // Get user data from localStorage
+  const userName = localStorage.getItem('userName') || 'Adventurer';
+  const userLevel = parseInt(localStorage.getItem('userLevel')) || 1;
+  const currentXP = parseInt(localStorage.getItem('userXp')) || 0;
+  const nextLevelXP = userLevel * 1000; // XP needed increases with level
+  const xpPercentage = Math.min((currentXP / nextLevelXP) * 100, 100);
+  
+  // Get initials from name
+  const getInitials = (name) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  // Get rank title based on level
+  const getRankTitle = (level) => {
+    if (level >= 50) return 'Legend';
+    if (level >= 30) return 'Elite Learner';
+    if (level >= 20) return 'Advanced';
+    if (level >= 10) return 'Intermediate';
+    if (level >= 5) return 'Apprentice';
+    return 'Novice';
+  };
 
   return (
     <motion.header
@@ -59,7 +81,7 @@ const Header = () => {
           <div className="flex items-center space-x-3">
             <div className="relative">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-600 to-slate-500 flex items-center justify-center text-white font-bold">
-                JD
+                {getInitials(userName)}
               </div>
               {/* Level Badge */}
               <motion.div
@@ -75,8 +97,8 @@ const Header = () => {
               </motion.div>
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">John Doe</p>
-              <p className="text-xs text-gray-400">Elite Learner</p>
+              <p className="text-sm font-semibold text-white">{userName}</p>
+              <p className="text-xs text-gray-400">{getRankTitle(userLevel)}</p>
             </div>
           </div>
         </div>
