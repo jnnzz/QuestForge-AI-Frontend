@@ -1,236 +1,308 @@
 import { motion } from 'framer-motion';
-import { Map, Lock, CheckCircle, Clock, Zap, Award, ChevronRight } from 'lucide-react';
-import { fieldRoadmaps } from '../data/roadmaps';
+import { Map, BookOpen, Code, GitBranch, ExternalLink, PlayCircle, FileText, Trophy, Calendar, Target, BookMarked, Gift } from 'lucide-react';
 
 const QuestsPage = ({ selectedField }) => {
-  if (!selectedField) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-        <Map className="w-20 h-20 text-gray-600 mb-4" />
-        <h2 className="text-2xl font-bold text-white mb-2">No Learning Path Selected</h2>
-        <p className="text-gray-400">
-          Please select your IT field to view your personalized quest roadmap
-        </p>
-      </div>
-    );
-  }
-
-  const roadmap = fieldRoadmaps[selectedField.id];
-  const FieldIcon = selectedField.icon; // Assign to capitalized variable for JSX
-
-  if (!roadmap) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-        <Map className="w-20 h-20 text-red-600 mb-4" />
-        <h2 className="text-2xl font-bold text-white mb-2">No roadmap available</h2>
-        <p className="text-gray-400">
-          No roadmap found for field: {selectedField.id}
-        </p>
-      </div>
-    );
-  }
+  const webDevRoadmap = {
+    title: "Web Development Roadmap",
+    subtitle: "The First 3 Quests",
+    duration: "Duration: 1-2 months",
+    quests: [
+      {
+        id: 1,
+        title: "The Architect's Blueprint",
+        tech: "HTML5 & CSS3",
+        weeks: "Week 1-2",
+        icon: BookOpen,
+        color: "from-slate-700 via-slate-600 to-blue-900",
+        goal: "Master the structure and styling of the modern web. You aren't just making \"sites\"; you're learning how the browser interprets visual data.",
+        topics: [
+          "Semantic HTML",
+          "Flexbox/Grid (Layouts)",
+          "Responsive Design (Mobile-first)"
+        ],
+        resources: [
+          {
+            type: "Course",
+            title: "Responsive Web Design Certification",
+            provider: "freeCodeCamp",
+            icon: PlayCircle,
+            color: "text-emerald-400"
+          },
+          {
+            type: "Quick Reference",
+            title: "MDN Web Docs",
+            provider: "The \"Bible\" of Web Dev",
+            icon: FileText,
+            color: "text-blue-400"
+          },
+          {
+            type: "Interactive Game",
+            title: "Flexbox Froggy",
+            provider: "Great for 15-minute breaks between classes",
+            icon: Trophy,
+            color: "text-purple-400"
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "The Logic Engine",
+        tech: "JavaScript Fundamentals",
+        weeks: "Week 3-4",
+        icon: Code,
+        color: "from-slate-700 via-amber-900 to-slate-600",
+        goal: "Move from static pages to functional applications. This is where you learn to handle user data and \"if/then\" logic.",
+        topics: [
+          "DOM Manipulation",
+          "ES6 Syntax (Arrow functions, Destructuring)",
+          "Fetch API (Async/Await)"
+        ],
+        resources: [
+          {
+            type: "Course",
+            title: "JavaScript Algorithms and Data Structures",
+            provider: "freeCodeCamp",
+            icon: PlayCircle,
+            color: "text-emerald-400"
+          },
+          {
+            type: "Video Series",
+            title: "JavaScript Beginner's Series",
+            provider: "The Net Ninja",
+            icon: PlayCircle,
+            color: "text-amber-400"
+          },
+          {
+            type: "Documentation",
+            title: "JavaScript.info",
+            provider: "Very deep explanations",
+            icon: FileText,
+            color: "text-blue-400"
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "The Modern Workflow",
+        tech: "Git & Version Control",
+        weeks: "Week 5",
+        icon: GitBranch,
+        color: "from-slate-700 via-purple-900 to-slate-600",
+        goal: "Learn how professionals actually build software. Without Git, you can't work in a team or contribute to Open Source.",
+        topics: [
+          "Repositories",
+          "Commits",
+          "Branching, Merging",
+          "GitHub Pull Requests"
+        ],
+        resources: [
+          {
+            type: "Course",
+            title: "Version Control with Git",
+            provider: "Udacity",
+            icon: PlayCircle,
+            color: "text-emerald-400"
+          }
+        ]
+      }
+    ]
+  };
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-10"
       >
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-4xl font-bold text-white mb-2 flex items-center space-x-3">
-              <Map className="w-10 h-10 text-neon-blue" />
-              <span>Quest Roadmap</span>
-            </h1>
-            <p className="text-gray-400">
-              Your personalized learning path for <span className="text-neon-blue font-semibold">{selectedField.name}</span>
-            </p>
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-slate-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg"
+                   style={{ boxShadow: '0 0 15px rgba(100, 116, 139, 0.4)' }}>
+                <Map className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold text-white">{webDevRoadmap.title}</h1>
+                <p className="text-blue-400 font-semibold">{webDevRoadmap.subtitle}</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 text-gray-400">
+              <Calendar className="w-4 h-4" />
+              <span className="text-sm">{webDevRoadmap.duration}</span>
+            </div>
           </div>
           
           <div className="text-right">
-            <div className="px-6 py-3 bg-quest-slate rounded-xl border border-neon-blue/50">
+            <div className="px-6 py-3 bg-quest-slate rounded-xl border border-blue-500/50 shadow-lg">
               <p className="text-sm text-gray-400 mb-1">Total Quests</p>
-              <p className="text-3xl font-bold text-white">
-                {roadmap.phases.reduce((sum, phase) => sum + phase.quests.length, 0)}
-              </p>
+              <p className="text-3xl font-bold text-white">{webDevRoadmap.quests.length}</p>
             </div>
           </div>
         </div>
 
-        {/* Field Info Banner */}
+        {/* Info Banner */}
         <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
+          initial={{ scale: 0.98, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className={`relative bg-gradient-to-r ${selectedField.color} rounded-xl p-6 overflow-hidden`}
+          className="bg-gradient-to-r from-quest-slate to-gray-800 rounded-xl p-6 border border-gray-700"
         >
-          <div className="relative z-10">
-            <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                <FieldIcon className="w-8 h-8 text-white" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-1">{selectedField.name}</h3>
-                <p className="text-white/90">{selectedField.description}</p>
-              </div>
-              <div className="text-right">
-                <p className="text-white/80 text-sm mb-1">Estimated Duration</p>
-                <p className="text-xl font-bold text-white">{selectedField.duration}</p>
-              </div>
-            </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20" />
+          <p className="text-gray-300 leading-relaxed">
+            <span className="text-blue-400 font-semibold">Your Learning Journey:</span> This roadmap will take you from zero to hero in web development. Each quest builds upon the previous one, creating a solid foundation for your career in tech. Complete all quests to unlock advanced challenges.
+          </p>
         </motion.div>
       </motion.div>
 
-      {/* Roadmap Phases */}
+      {/* Quests */}
       <div className="space-y-8">
-        {roadmap.phases.map((phase, phaseIndex) => (
-          <motion.div
-            key={phase.phase}
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 + phaseIndex * 0.1 }}
-            className="relative"
-          >
-            {/* Phase Header */}
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-neon-blue to-electric-blue rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg"
-                     style={{
-                       boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)',
-                     }}>
-                  {phase.phase}
+        {webDevRoadmap.quests.map((quest, index) => {
+          const QuestIcon = quest.icon;
+          return (
+            <motion.div
+              key={quest.id}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 + index * 0.15 }}
+              className="relative"
+            >
+              {/* Quest Card */}
+              <div className="bg-quest-slate rounded-2xl border border-gray-700 overflow-hidden shadow-2xl hover:border-slate-500 transition-all">
+                {/* Quest Header */}
+                <div className={`relative bg-gradient-to-r ${quest.color} p-6`}>
+                  <div className="relative z-10 flex items-start justify-between">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
+                        <QuestIcon className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-3 mb-2">
+                          <span className="text-3xl font-bold text-white">Quest {quest.id}</span>
+                          <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-semibold text-white">
+                            {quest.weeks}
+                          </span>
+                        </div>
+                        <h2 className="text-2xl font-bold text-white mb-1">{quest.title}</h2>
+                        <p className="text-white/90 font-medium">{quest.tech}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
                 </div>
-                {phaseIndex < roadmap.phases.length - 1 && (
-                  <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-12 bg-gradient-to-b from-neon-blue to-transparent" />
-                )}
-              </div>
-              <div className="flex-1">
-                <h2 className="text-3xl font-bold text-white mb-1">
-                  Phase {phase.phase}: {phase.name}
-                </h2>
-                <div className="flex items-center space-x-4 text-sm text-gray-400">
-                  <span className="flex items-center space-x-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{phase.duration}</span>
-                  </span>
-                  <span>•</span>
-                  <span>{phase.quests.length} Quests</span>
-                  <span>•</span>
-                  <span className="text-yellow-400 font-semibold">
-                    {phase.quests.reduce((sum, q) => sum + q.xp, 0)} Total XP
-                  </span>
-                </div>
-              </div>
-            </div>
 
-            {/* Quests Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pl-20">
-              {phase.quests.map((quest, questIndex) => (
-                <motion.div
-                  key={quest.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + phaseIndex * 0.1 + questIndex * 0.05 }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className={`relative bg-quest-slate rounded-xl p-6 border-2 cursor-pointer transition-all ${
-                    quest.type === 'core'
-                      ? 'border-electric-blue hover:shadow-lg hover:shadow-electric-blue/30'
-                      : 'border-neon-purple hover:shadow-lg hover:shadow-neon-purple/30'
-                  }`}
-                >
-                  {/* Quest Badge */}
-                  <div className="flex items-start justify-between mb-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      quest.type === 'core'
-                        ? 'bg-electric-blue/20 text-electric-blue border border-electric-blue/50'
-                        : 'bg-neon-purple/20 text-neon-purple border border-neon-purple/50'
-                    }`}>
-                      {quest.type === 'core' ? 'CORE' : 'SIDE QUEST'}
-                    </span>
-                    <Lock className="w-5 h-5 text-gray-600" />
+                {/* Quest Content */}
+                <div className="p-6 space-y-6">
+                  {/* Goal Section */}
+                  <div>
+                    <h3 className="text-lg font-bold text-blue-400 mb-3 flex items-center space-x-2">
+                      <Target className="w-5 h-5" />
+                      <span>The Goal</span>
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed pl-7">
+                      {quest.goal}
+                    </p>
                   </div>
 
-                  {/* Quest Title */}
-                  <h3 className="text-lg font-bold text-white mb-3">{quest.title}</h3>
-
-                  {/* Quest Stats */}
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-400">Difficulty</span>
-                      <span className={`font-semibold ${
-                        quest.difficulty === 'Expert' || quest.difficulty === 'Hard'
-                          ? 'text-red-400'
-                          : quest.difficulty === 'Medium'
-                          ? 'text-yellow-400'
-                          : 'text-green-400'
-                      }`}>
-                        {quest.difficulty}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-400 flex items-center space-x-1">
-                        <Clock className="w-3 h-3" />
-                        <span>Time</span>
-                      </span>
-                      <span className="text-white">{quest.estimatedTime}</span>
+                  {/* Key Topics */}
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-300 mb-3 flex items-center space-x-2">
+                      <BookMarked className="w-5 h-5" />
+                      <span>Key Topics</span>
+                    </h3>
+                    <div className="pl-7 space-y-2">
+                      {quest.topics.map((topic, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4 + index * 0.15 + idx * 0.05 }}
+                          className="flex items-center space-x-2"
+                        >
+                          <div className="w-1.5 h-1.5 bg-slate-400 rounded-full" />
+                          <span className="text-gray-300">{topic}</span>
+                        </motion.div>
+                      ))}
                     </div>
                   </div>
 
-                  {/* XP Reward */}
-                  <div className={`flex items-center justify-between p-3 rounded-lg ${
-                    quest.type === 'core'
-                      ? 'bg-electric-blue/10 border border-electric-blue/30'
-                      : 'bg-neon-purple/10 border border-neon-purple/30'
-                  }`}>
-                    <span className="text-sm text-gray-300 font-medium flex items-center space-x-1">
-                      <Zap className="w-4 h-4" />
-                      <span>Reward</span>
-                    </span>
-                    <span className={`text-lg font-bold ${
-                      quest.type === 'core' ? 'text-electric-blue' : 'text-neon-purple'
-                    }`}>
-                      +{quest.xp} XP
-                    </span>
+                  {/* Free Resources */}
+                  <div>
+                    <h3 className="text-lg font-bold text-emerald-400 mb-4 flex items-center space-x-2">
+                      <Gift className="w-5 h-5" />
+                      <span>Free Resources</span>
+                    </h3>
+                    <div className="space-y-3 pl-7">
+                      {quest.resources.map((resource, idx) => {
+                        const ResourceIcon = resource.icon;
+                        return (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 + index * 0.15 + idx * 0.05 }}
+                            className="group"
+                          >
+                            <div className="flex items-start space-x-3 p-4 bg-quest-dark rounded-xl border border-gray-700 hover:border-slate-500 transition-all cursor-pointer">
+                              <ResourceIcon className={`w-5 h-5 ${resource.color} flex-shrink-0 mt-0.5`} />
+                              <div className="flex-1">
+                                <div className="flex items-center space-x-2 mb-1">
+                                  <span className="text-sm font-semibold text-gray-400">{resource.type}:</span>
+                                  <span className="text-white font-semibold group-hover:text-blue-400 transition-colors">
+                                    {resource.title}
+                                  </span>
+                                  <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-blue-400 transition-colors" />
+                                </div>
+                                <p className="text-sm text-gray-500">{resource.provider}</p>
+                              </div>
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
                   </div>
+                </div>
+              </div>
 
-                  {/* Start Arrow */}
+              {/* Connector Line (except for last quest) */}
+              {index < webDevRoadmap.quests.length - 1 && (
+                <div className="flex justify-center my-4">
                   <motion.div
-                    className={`absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity`}
-                    whileHover={{ x: 5 }}
-                  >
-                    <ChevronRight className="w-5 h-5 text-gray-400" />
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ delay: 0.5 + index * 0.15, duration: 0.3 }}
+                    className="w-1 h-8 bg-gradient-to-b from-slate-600 to-slate-800 rounded-full"
+                    style={{ originY: 0 }}
+                  />
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
 
-      {/* Completion Badge */}
+      {/* Footer CTA */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
         className="mt-12 text-center"
       >
-        <div className="inline-flex flex-col items-center bg-quest-slate rounded-2xl p-8 border-2 border-yellow-500/50">
-          <Award className="w-16 h-16 text-yellow-400 mb-4" />
-          <h3 className="text-2xl font-bold text-white mb-2">Completion Reward</h3>
-          <p className="text-gray-400 mb-4">
-            Complete all quests to earn the {selectedField.name} Master Certificate
+        <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 border border-slate-600/50 rounded-2xl p-8">
+          <h3 className="text-2xl font-bold text-white mb-3">Ready to Start Your Journey?</h3>
+          <p className="text-gray-400 mb-6">
+            Complete all 3 quests to unlock the advanced web development challenges and level up your skills!
           </p>
-          <div className="flex items-center space-x-2 text-yellow-400 font-bold text-xl">
-            <Zap className="w-6 h-6" />
-            <span>
-              +{roadmap.phases.reduce((sum, phase) => 
-                sum + phase.quests.reduce((qSum, q) => qSum + q.xp, 0), 0
-              )} Total XP
-            </span>
+          <div className="flex items-center justify-center space-x-4">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-400">0/3</div>
+              <div className="text-sm text-gray-400">Quests Completed</div>
+            </div>
+            <div className="w-px h-12 bg-gray-700" />
+            <div className="text-center">
+              <div className="text-3xl font-bold text-emerald-400">0 XP</div>
+              <div className="text-sm text-gray-400">Total Earned</div>
+            </div>
           </div>
         </div>
       </motion.div>

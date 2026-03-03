@@ -57,7 +57,7 @@ const Login = () => {
               transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
               className="text-center mb-8"
             >
-              <div className="inline-block p-4 bg-gradient-to-br from-neon-blue to-electric-blue rounded-2xl mb-4"
+              <div className="inline-block p-4 bg-gradient-to-br from-slate-600 to-blue-700 rounded-2xl mb-4"
                    style={{ boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' }}>
                 <svg className="w-16 h-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
@@ -80,7 +80,7 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="john@example.com"
-                  className="w-full bg-quest-dark border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-neon-blue focus:ring-2 focus:ring-neon-blue/20 transition-all"
+                  className="w-full bg-quest-dark border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                 />
               </div>
               <div>
@@ -88,7 +88,7 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="••••••••"
-                  className="w-full bg-quest-dark border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-neon-blue focus:ring-2 focus:ring-neon-blue/20 transition-all"
+                  className="w-full bg-quest-dark border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                 />
               </div>
 
@@ -96,14 +96,20 @@ const Login = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleLogin}
-                className="w-full bg-gradient-to-r from-neon-blue to-electric-blue text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all"
+                className="w-full bg-gradient-to-r from-slate-600 to-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all"
                 style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' }}
               >
                 Start Your Quest
               </motion.button>
 
               <p className="text-center text-sm text-gray-400 mt-4">
-                Don't have an account? <span className="text-neon-blue cursor-pointer hover:underline">Sign up</span>
+                Don't have an account?{' '}
+                <span 
+                  onClick={() => navigate('/register')}
+                  className="text-blue-400 cursor-pointer hover:underline"
+                >
+                  Sign up
+                </span>
               </p>
             </motion.div>
           </div>

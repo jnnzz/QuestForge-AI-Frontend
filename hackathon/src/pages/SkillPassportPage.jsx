@@ -63,7 +63,7 @@ const SkillPassport = () => {
       >
         <div>
           <h1 className="text-4xl font-bold text-white mb-2 flex items-center space-x-3">
-            <Award className="w-10 h-10 text-neon-purple" />
+            <Award className="w-10 h-10 text-purple-400" />
             <span>Skill Passport</span>
           </h1>
           <p className="text-gray-400">Your comprehensive learning achievements</p>
@@ -77,7 +77,7 @@ const SkillPassport = () => {
           }}
           whileTap={{ scale: 0.95 }}
           onClick={handleDownloadPDF}
-          className="px-6 py-3 bg-gradient-to-r from-electric-blue to-blue-600 text-white font-bold rounded-lg flex items-center space-x-2 shadow-lg transition-all"
+          className="px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-600 text-white font-bold rounded-lg flex items-center space-x-2 shadow-lg transition-all"
           style={{
             boxShadow: '0 4px 15px rgba(59, 130, 246, 0.4)',
           }}
@@ -123,7 +123,7 @@ const SkillPassport = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-              className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-neon-purple to-electric-blue rounded-full mb-6"
+              className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-slate-600 to-blue-700 rounded-full mb-6"
               style={{
                 boxShadow: '0 0 40px rgba(168, 85, 247, 0.6)',
               }}
@@ -132,7 +132,7 @@ const SkillPassport = () => {
             </motion.div>
             <h2 className="text-xl text-gray-400 mb-2">QuestForge AI Learning Platform</h2>
             <h3 className="text-5xl font-bold text-white mb-4">{userData.name}</h3>
-            <p className="text-xl text-neon-purple font-semibold">{userData.title}</p>
+            <p className="text-xl text-purple-400 font-semibold">{userData.title}</p>
           </div>
 
           {/* Certificate Info Grid */}
@@ -158,7 +158,7 @@ const SkillPassport = () => {
           {/* Certificate ID */}
           <div className="text-center py-4 border-t border-b border-gray-700/50">
             <p className="text-sm text-gray-400 mb-1">Certificate ID</p>
-            <p className="text-lg font-mono text-neon-blue">{userData.certificateId}</p>
+            <p className="text-lg font-mono text-blue-400">{userData.certificateId}</p>
           </div>
         </div>
       </motion.div>
@@ -203,7 +203,7 @@ const SkillPassport = () => {
       >
         <div className="p-8">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center space-x-2">
-            <Code className="w-6 h-6 text-neon-blue" />
+            <Code className="w-6 h-6 text-blue-400" />
             <span>Skill Mastery</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

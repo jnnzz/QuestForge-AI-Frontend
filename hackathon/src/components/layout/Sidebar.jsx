@@ -46,12 +46,12 @@ const Sidebar = () => {
           transition={{ delay: 0.2, duration: 0.4 }}
           className="flex items-center space-x-3"
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-neon-blue to-electric-blue rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-br from-slate-600 to-blue-700 rounded-lg flex items-center justify-center">
             <Sword className="w-6 h-6 text-white" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">QuestForge</h1>
-            <p className="text-xs text-neon-blue">AI Learning Platform</p>
+            <p className="text-xs text-blue-400">AI Learning Platform</p>
           </div>
         </motion.div>
       </div>
@@ -69,15 +69,15 @@ const Sidebar = () => {
               to={item.path}
               className={`w-full flex items-center space-x-4 px-4 py-3 rounded-lg transition-all duration-300 group ${
                 isActive(item.path)
-                  ? 'bg-gradient-to-r from-neon-blue/20 to-electric-blue/20 border border-neon-blue/50'
+                  ? 'bg-gradient-to-r from-slate-700/30 to-blue-900/30 border border-blue-500/50'
                   : 'hover:bg-gray-700/50'
               }`}
             >
               <item.icon
                 className={`w-5 h-5 transition-all duration-300 ${
                   isActive(item.path)
-                    ? 'text-neon-blue drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]'
-                    : 'text-gray-400 group-hover:text-neon-blue group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]'
+                    ? 'text-blue-400 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]'
+                    : 'text-gray-400 group-hover:text-blue-400 group-hover:drop-shadow-[0_0_6px_rgba(96,165,250,0.4)]'
                 }`}
               />
               <span
@@ -102,14 +102,14 @@ const Sidebar = () => {
         <div className="bg-gradient-to-br from-quest-dark to-gray-900 rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs text-gray-400">Daily Progress</span>
-            <span className="text-xs text-neon-blue font-bold">75%</span>
+            <span className="text-xs text-blue-400 font-bold">75%</span>
           </div>
           <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: '75%' }}
               transition={{ delay: 0.8, duration: 1, ease: 'easeOut' }}
-              className="h-full bg-gradient-to-r from-neon-blue to-electric-blue"
+              className="h-full bg-gradient-to-r from-slate-500 to-blue-700"
             />
           </div>
         </div>

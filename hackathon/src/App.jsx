@@ -7,6 +7,7 @@ import BossArenaPage from './pages/BossArenaPage'
 import SkillPassportPage from './pages/SkillPassportPage'
 import QuestsPage from './pages/QuestsPage'
 import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 import { getFieldById } from './data/fields'
 import './App.css'
 
@@ -53,6 +54,9 @@ function AppContent() {
     <Routes>
       {/* Login route */}
       <Route path="/login" element={<LoginPage />} />
+      
+      {/* Register route */}
+      <Route path="/register" element={<RegisterPage />} />
       
       {/* Protected routes with MainLayout */}
       <Route path="/login/*" element={

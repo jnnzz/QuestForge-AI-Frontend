@@ -112,7 +112,7 @@ const MainLayout = ({ children, isBossMode }) => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="absolute top-0 right-0 w-96 h-96 bg-neon-blue/10 rounded-full blur-3xl"
+          className="absolute top-0 right-0 w-96 h-96 bg-slate-600/10 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -125,7 +125,7 @@ const MainLayout = ({ children, isBossMode }) => {
             ease: 'easeInOut',
             delay: 2,
           }}
-          className="absolute bottom-0 left-64 w-96 h-96 bg-neon-purple/10 rounded-full blur-3xl"
+          className="absolute bottom-0 left-64 w-96 h-96 bg-purple-700/10 rounded-full blur-3xl"
         />
       </div>
     </div>

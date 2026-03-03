@@ -3,10 +3,10 @@ import { TrendingUp, BookOpen, Award, Users } from 'lucide-react';
 
 const Dashboard = () => {
   const stats = [
-    { icon: TrendingUp, label: 'Total XP', value: '47,350', color: 'from-quest-green to-emerald-400' },
-    { icon: BookOpen, label: 'Quests Completed', value: '23', color: 'from-neon-blue to-cyan-400' },
-    { icon: Award, label: 'Achievements', value: '18', color: 'from-neon-purple to-purple-400' },
-    { icon: Users, label: 'Guild Rank', value: '#127', color: 'from-electric-blue to-blue-400' },
+    { icon: TrendingUp, label: 'Total XP', value: '47,350', color: 'from-emerald-700 to-emerald-600' },
+    { icon: BookOpen, label: 'Quests Completed', value: '23', color: 'from-slate-600 to-blue-700' },
+    { icon: Award, label: 'Achievements', value: '18', color: 'from-slate-700 to-purple-700' },
+    { icon: Users, label: 'Guild Rank', value: '#127', color: 'from-blue-800 to-blue-600' },
   ];
 
   const containerVariants = {
@@ -40,7 +40,7 @@ const Dashboard = () => {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-4xl font-bold text-white mb-2">Welcome back, John! 🎮</h1>
+        <h1 className="text-4xl font-bold text-white mb-2">Welcome back, John!</h1>
         <p className="text-gray-400">Ready to continue your learning journey?</p>
       </motion.div>
 
@@ -86,7 +86,7 @@ const Dashboard = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.7 + index * 0.1 }}
-              className="bg-quest-dark/50 rounded-lg p-4 border border-gray-700 hover:border-neon-blue transition-all"
+              className="bg-quest-dark/50 rounded-lg p-4 border border-gray-700 hover:border-slate-500 transition-all"
             >
               <div className="flex items-center justify-between mb-3">
                 <div>
@@ -102,14 +102,14 @@ const Dashboard = () => {
                     <span className="text-xs text-gray-400">+{quest.xp} XP</span>
                   </div>
                 </div>
-                <span className="text-2xl font-bold text-neon-blue">{quest.progress}%</span>
+                <span className="text-2xl font-bold text-blue-400">{quest.progress}%</span>
               </div>
               <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${quest.progress}%` }}
                   transition={{ delay: 0.8 + index * 0.1, duration: 1, ease: 'easeOut' }}
-                  className="h-full bg-gradient-to-r from-neon-blue to-electric-blue"
+                  className="h-full bg-gradient-to-r from-slate-500 to-blue-700"
                 />
               </div>
             </motion.div>

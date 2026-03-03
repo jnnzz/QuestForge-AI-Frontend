@@ -142,11 +142,11 @@ const QuestMap = ({ quests = [] }) => {
         {/* Legend */}
         <div className="flex items-center space-x-6 mt-4">
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border-2 border-electric-blue rounded" />
+            <div className="w-4 h-4 border-2 border-blue-500 rounded" />
             <span className="text-sm text-gray-400">Core Quest (High XP)</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 border-2 border-neon-purple rounded" />
+            <div className="w-4 h-4 border-2 border-purple-500 rounded" />
             <span className="text-sm text-gray-400">Side Quest (Bonus)</span>
           </div>
         </div>
@@ -172,8 +172,8 @@ const QuestMap = ({ quests = [] }) => {
             <div
               className={`absolute inset-0 rounded-xl transition-all duration-300 ${
                 quest.type === 'core'
-                  ? 'border-2 border-electric-blue'
-                  : 'border-2 border-neon-purple'
+                  ? 'border-2 border-blue-500'
+                  : 'border-2 border-purple-500'
               }`}
               style={{
                 boxShadow: quest.type === 'core'
@@ -188,13 +188,13 @@ const QuestMap = ({ quests = [] }) => {
                 <div
                   className={`w-12 h-12 rounded-lg flex items-center justify-center ${
                     quest.type === 'core'
-                      ? 'bg-electric-blue/20'
-                      : 'bg-neon-purple/20'
+                      ? 'bg-blue-500/20'
+                      : 'bg-purple-500/20'
                   }`}
                 >
                   <quest.icon
                     className={`w-6 h-6 ${
-                      quest.type === 'core' ? 'text-electric-blue' : 'text-neon-purple'
+                      quest.type === 'core' ? 'text-blue-500' : 'text-purple-500'
                     }`}
                   />
                 </div>
@@ -204,8 +204,8 @@ const QuestMap = ({ quests = [] }) => {
                   whileHover={{ scale: 1.1 }}
                   className={`px-3 py-1 rounded-full text-xs font-bold ${
                     quest.type === 'core'
-                      ? 'bg-electric-blue/20 text-electric-blue border border-electric-blue/50'
-                      : 'bg-neon-purple/20 text-neon-purple border border-neon-purple/50'
+                      ? 'bg-blue-500/20 text-blue-500 border border-blue-500/50'
+                      : 'bg-purple-500/20 text-purple-500 border border-purple-500/50'
                   }`}
                 >
                   {quest.type === 'core' ? 'HIGH XP' : 'BONUS'}
@@ -247,14 +247,14 @@ const QuestMap = ({ quests = [] }) => {
               <div
                 className={`flex items-center justify-between p-3 rounded-lg ${
                   quest.type === 'core'
-                    ? 'bg-electric-blue/10 border border-electric-blue/30'
-                    : 'bg-neon-purple/10 border border-neon-purple/30'
+                    ? 'bg-blue-500/10 border border-blue-500/30'
+                    : 'bg-purple-500/10 border border-purple-500/30'
                 }`}
               >
                 <span className="text-sm text-gray-300 font-medium">XP Reward</span>
                 <span
                   className={`text-lg font-bold ${
-                    quest.type === 'core' ? 'text-electric-blue' : 'text-neon-purple'
+                    quest.type === 'core' ? 'text-blue-500' : 'text-purple-500'
                   }`}
                 >
                   +{quest.xp}
@@ -278,8 +278,8 @@ const QuestMap = ({ quests = [] }) => {
                   whileTap={{ scale: 0.95 }}
                   className={`w-full mt-4 px-4 py-2 rounded-lg font-semibold text-white transition-all ${
                     quest.type === 'core'
-                      ? 'bg-electric-blue hover:bg-electric-blue/80 hover:shadow-lg hover:shadow-electric-blue/50'
-                      : 'bg-neon-purple hover:bg-neon-purple/80 hover:shadow-lg hover:shadow-neon-purple/50'
+                      ? 'bg-blue-500 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/30'
+                      : 'bg-purple-500 hover:bg-purple-600 hover:shadow-lg hover:shadow-purple-500/30'
                   }`}
                 >
                   Start Quest
