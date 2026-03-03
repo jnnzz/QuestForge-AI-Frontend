@@ -5,6 +5,11 @@ import FieldSelection from '../components/onboarding/FieldSelection';
 
 const Login = () => {
   const [showFieldSelection, setShowFieldSelection] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,10 +23,34 @@ const Login = () => {
     }
   }, [navigate]);
 
-  const handleLogin = () => {
-    // Mark as authenticated
-    localStorage.setItem('isAuthenticated', 'true');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.email || !formData.password) {
+      return;
+    }
+
+    setIsLoading(true);
+    
+    // Simulate loading
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Set authentication (no backend needed)
+    localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('token', 'demo-token-12345');
+    localStorage.setItem('userName', formData.email.split('@')[0]);
+    localStorage.setItem('userEmail', formData.email);
+    
+    setIsLoading(false);
+    
     // Check if field is already selected
     const savedFieldId = localStorage.getItem('selectedFieldId');
     if (savedFieldId) {
@@ -69,17 +98,22 @@ const Login = () => {
             </motion.div>
 
             {/* Login Form */}
-            <motion.div
+            <motion.form
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
+              onSubmit={handleLogin}
               className="space-y-4"
             >
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="john@example.com"
+                  required
                   className="w-full bg-quest-dark border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                 />
               </div>
@@ -87,7 +121,11 @@ const Login = () => {
                 <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
                 <input
                   type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder="••••••••"
+                  required
                   className="w-full bg-quest-dark border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                 />
               </div>
@@ -95,11 +133,12 @@ const Login = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={handleLogin}
-                className="w-full bg-gradient-to-r from-slate-600 to-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all"
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-slate-600 to-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' }}
               >
-                Start Your Quest
+                {isLoading ? 'Logging in...' : 'Start Your Quest'}
               </motion.button>
 
               <p className="text-center text-sm text-gray-400 mt-4">
@@ -111,7 +150,7 @@ const Login = () => {
                   Sign up
                 </span>
               </p>
-            </motion.div>
+            </motion.form>
           </div>
 
           {/* Footer Text */}

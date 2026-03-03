@@ -7,10 +7,11 @@ const SyllabusSyncPage = () => {
   const [scheduleGenerated, setScheduleGenerated] = useState(true); // Show by default
   const [syllabusFile, setSyllabusFile] = useState(null);
 
-  const handleAnalyzeSyllabus = (file) => {
-    // Here you would normally send the PDF to your AI backend
-    // For demo purposes, we'll just show the weekly schedule
+  const handleAnalyzeSyllabus = (file, analysisData) => {
+    // Store the PDF file and analysis data
     console.log('Analyzing syllabus PDF:', file.name);
+    console.log('Analysis data from backend:', analysisData);
+    
     setSyllabusFile(file);
     setScheduleGenerated(true);
     
@@ -18,6 +19,11 @@ const SyllabusSyncPage = () => {
     localStorage.setItem('syllabusUploaded', 'true');
     localStorage.setItem('currentWeek', '1');
     localStorage.setItem('currentDay', 'Monday');
+    
+    // Optionally store syllabus ID if backend returns it
+    if (analysisData?.syllabusId) {
+      localStorage.setItem('syllabusId', analysisData.syllabusId);
+    }
   };
 
   return (

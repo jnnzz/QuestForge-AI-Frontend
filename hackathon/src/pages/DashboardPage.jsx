@@ -1,7 +1,25 @@
 import { motion } from 'framer-motion';
-import { TrendingUp, BookOpen, Award, Users, Trophy, Medal, Crown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { 
+  TrendingUp, 
+  BookOpen, 
+  Trophy, 
+  Medal, 
+  Crown, 
+  Sparkles,
+  Target,
+  Shield,
+  Swords,
+  FileText,
+  ArrowRight,
+  CheckCircle,
+  Clock,
+  Zap
+} from 'lucide-react';
 
 const Dashboard = ({ selectedField }) => {
+  const navigate = useNavigate();
+  
   // Leaderboard data organized by field
   const leaderboardData = {
     'web-dev': [
@@ -85,11 +103,69 @@ const Dashboard = ({ selectedField }) => {
     return 'from-quest-dark to-quest-dark border-gray-700';
   };
 
-  const stats = [
-    { icon: TrendingUp, label: 'Total XP', value: '47,350', color: 'from-emerald-700 to-emerald-600' },
-    { icon: BookOpen, label: 'Quests Completed', value: '23', color: 'from-slate-600 to-blue-700' },
-    { icon: Award, label: 'Achievements', value: '18', color: 'from-slate-700 to-purple-700' },
-    { icon: Users, label: 'Guild Rank', value: '#127', color: 'from-blue-800 to-blue-600' },
+  // Check syllabus status from localStorage
+  const syllabusUploaded = localStorage.getItem('syllabusUploaded') === 'true';
+  const currentQuest = localStorage.getItem('currentQuest') || '1';
+  const currentWeek = localStorage.getItem('currentWeek') || '1';
+
+  // Feature cards data
+  const featureCards = [
+    {
+      id: 'syllabus',
+      title: 'Syllabus Sync',
+      icon: FileText,
+      color: 'from-cyan-500 to-blue-500',
+      bgColor: 'from-cyan-500/10 to-blue-500/10',
+      borderColor: 'border-cyan-500/30',
+      status: syllabusUploaded ? 'Synced' : 'Not Synced',
+      statusColor: syllabusUploaded ? 'text-emerald-400' : 'text-yellow-400',
+      description: syllabusUploaded 
+        ? `Week ${currentWeek} - Learning in progress` 
+        : 'Upload your syllabus to get personalized quests',
+      progress: syllabusUploaded ? 35 : 0,
+      action: () => navigate('/login/syllabus'),
+      buttonText: syllabusUploaded ? 'View Schedule' : 'Upload Syllabus',
+    },
+    {
+      id: 'quests',
+      title: 'Quests',
+      icon: Target,
+      color: 'from-purple-500 to-pink-500',
+      bgColor: 'from-purple-500/10 to-pink-500/10',
+      borderColor: 'border-purple-500/30',
+      status: `Quest ${currentQuest}`,
+      statusColor: 'text-purple-400',
+      description: 'Complete quests to earn XP and level up your skills',
+      progress: 45,
+      action: () => navigate('/login/quests'),
+      buttonText: 'View Quests',
+      stats: { completed: 2, total: 3 },
+    },
+    {
+      id: 'boss',
+      title: 'Boss Arena',
+      icon: Swords,
+      color: 'from-red-500 to-orange-500',
+      bgColor: 'from-red-500/10 to-orange-500/10',
+      borderColor: 'border-red-500/30',
+      status: syllabusUploaded ? 'Challenge Ready' : 'Locked',
+      statusColor: syllabusUploaded ? 'text-emerald-400' : 'text-gray-500',
+      description: syllabusUploaded 
+        ? 'Test your knowledge against AI bosses' 
+        : 'Complete syllabus sync to unlock',
+      progress: 0,
+      action: () => navigate('/login/bossArena'),
+      buttonText: syllabusUploaded ? 'Enter Arena' : 'Locked',
+      locked: !syllabusUploaded,
+    },
+  ];
+
+  // Quick stats
+  const quickStats = [
+    { icon: Zap, label: 'Total XP', value: '2,450', color: 'text-yellow-400' },
+    { icon: CheckCircle, label: 'Quests Done', value: '2', color: 'text-emerald-400' },
+    { icon: Shield, label: 'Bosses Defeated', value: '0', color: 'text-red-400' },
+    { icon: Clock, label: 'Study Streak', value: '3 days', color: 'text-cyan-400' },
   ];
 
   const containerVariants = {
@@ -123,29 +199,106 @@ const Dashboard = ({ selectedField }) => {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-4xl font-bold text-white mb-2">Welcome back, John!</h1>
-        <p className="text-gray-400">Ready to continue your learning journey?</p>
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 text-left">Welcome back, Adventurer!</h1>
+            <p className="text-gray-400 text-left">Ready to continue your learning journey in {fieldName}?</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 bg-quest-slate rounded-xl px-4 py-3 lg:px-6 lg:py-4 border border-gray-700">
+            {quickStats.map((stat, index) => (
+              <div key={stat.label} className={`flex items-center space-x-2 ${index > 0 ? 'md:pl-4 md:border-l md:border-gray-700' : ''}`}>
+                <stat.icon className={`w-5 h-5 ${stat.color}`} />
+                <div>
+                  <p className="text-xs text-gray-500">{stat.label}</p>
+                  <p className="text-base lg:text-lg font-bold text-white">{stat.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </motion.div>
 
-      {/* Stats Grid */}
+      {/* Feature Cards Grid */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"
       >
-        {stats.map((stat, index) => (
+        {featureCards.map((card, index) => (
           <motion.div
-            key={stat.label}
+            key={card.id}
             variants={itemVariants}
-            whileHover={{ scale: 1.05, y: -5 }}
-            className="bg-quest-slate rounded-xl p-6 border border-gray-700 shadow-xl"
+            whileHover={{ scale: card.locked ? 1 : 1.02, y: card.locked ? 0 : -5 }}
+            className={`relative bg-gradient-to-br ${card.bgColor} rounded-2xl p-6 border ${card.borderColor} shadow-xl overflow-hidden flex flex-col h-full min-h-[320px] ${
+              card.locked ? 'opacity-60' : ''
+            }`}
           >
-            <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center mb-4`}>
-              <stat.icon className="w-6 h-6 text-white" />
+            {/* Background pattern */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
+            
+            <div className="relative flex flex-col h-full">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-4">
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center shadow-lg`}>
+                  <card.icon className="w-7 h-7 text-white" />
+                </div>
+                <div className={`px-3 py-1 rounded-full bg-quest-dark/50 ${card.statusColor} text-sm font-semibold`}>
+                  {card.status}
+                </div>
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="text-2xl font-bold text-white mb-2 text-center">{card.title}</h3>
+              <p className="text-gray-400 text-sm mb-4 text-center">{card.description}</p>
+
+              {/* Content area - grows to fill space */}
+              <div className="flex-grow">
+                {/* Progress bar (if applicable) */}
+                {card.progress > 0 && (
+                  <div className="mb-4">
+                    <div className="flex justify-between text-xs mb-1">
+                      <span className="text-gray-400">Progress</span>
+                      <span className="text-white font-semibold">{card.progress}%</span>
+                    </div>
+                    <div className="w-full h-2 bg-quest-dark/50 rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${card.progress}%` }}
+                        transition={{ delay: 0.5 + index * 0.2, duration: 0.8 }}
+                        className={`h-full bg-gradient-to-r ${card.color} rounded-full`}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Stats (for quests) */}
+                {card.stats && (
+                  <div className="flex items-center justify-center space-x-4 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="w-4 h-4 text-emerald-400" />
+                      <span className="text-sm text-gray-300">{card.stats.completed}/{card.stats.total} completed</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Action Button */}
+              <motion.button
+                whileHover={{ scale: card.locked ? 1 : 1.05 }}
+                whileTap={{ scale: card.locked ? 1 : 0.95 }}
+                onClick={card.locked ? undefined : card.action}
+                disabled={card.locked}
+                className={`mt-auto w-full flex items-center justify-center space-x-2 py-3 rounded-xl font-semibold transition-all ${
+                  card.locked 
+                    ? 'bg-gray-700/50 text-gray-500 cursor-not-allowed' 
+                    : `bg-gradient-to-r ${card.color} text-white hover:shadow-lg`
+                }`}
+              >
+                <span>{card.buttonText}</span>
+                {!card.locked && <ArrowRight className="w-4 h-4" />}
+              </motion.button>
             </div>
-            <h3 className="text-gray-400 text-sm mb-1">{stat.label}</h3>
-            <p className="text-3xl font-bold text-white">{stat.value}</p>
           </motion.div>
         ))}
       </motion.div>

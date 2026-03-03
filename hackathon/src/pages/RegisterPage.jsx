@@ -13,6 +13,7 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -65,17 +66,25 @@ const RegisterPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Store user data (in production, this would be an API call)
-      localStorage.setItem('userEmail', formData.email);
-      localStorage.setItem('userName', formData.name);
-      localStorage.setItem('isAuthenticated', 'true');
-
-      // Redirect to login page (or could go directly to field selection)
-      navigate('/');
+      setIsLoading(true);
+      
+      // Simulate registration (no backend needed)
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Store user data locally
+      localStorage.setItem('registeredUser', JSON.stringify({
+        name: formData.name,
+        email: formData.email
+      }));
+      
+      setIsLoading(false);
+      
+      // Redirect to login page
+      navigate('/login');
     }
   };
 
@@ -249,10 +258,11 @@ const RegisterPage = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full bg-gradient-to-r from-slate-600 to-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all mt-6"
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-slate-600 to-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' }}
             >
-              Create Account
+              {isLoading ? 'Creating Account...' : 'Create Account'}
             </motion.button>
 
             {/* Login Link */}

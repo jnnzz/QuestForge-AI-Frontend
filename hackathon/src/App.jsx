@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import MainLayout from './components/layout/MainLayout'
 import DashboardPage from './pages/DashboardPage'
 import SyllabusPage from './pages/SyllabusPage'
@@ -8,6 +8,7 @@ import SkillPassportPage from './pages/SkillPassportPage'
 import QuestsPage from './pages/QuestsPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import LandingPage from './pages/LandingPage'
 import { getFieldById } from './data/fields'
 import './App.css'
 
@@ -52,6 +53,9 @@ function AppContent() {
 
   return (
     <Routes>
+      {/* Landing page */}
+      <Route path="/" element={<LandingPage />} />
+      
       {/* Login route */}
       <Route path="/login" element={<LoginPage />} />
       
@@ -70,9 +74,6 @@ function AppContent() {
           </Routes>
         </MainLayout>
       } />
-
-      {/* Redirect root to login */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }

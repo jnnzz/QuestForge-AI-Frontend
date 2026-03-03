@@ -2,7 +2,9 @@ import { motion } from 'framer-motion';
 import { Map, BookOpen, Code, GitBranch, ExternalLink, PlayCircle, FileText, Trophy, Calendar, Target, BookMarked, Gift } from 'lucide-react';
 
 const QuestsPage = ({ selectedField }) => {
-  const webDevRoadmap = {
+  // Roadmap data for all fields
+  const roadmaps = {
+    'web-dev': {
     title: "Web Development Roadmap",
     subtitle: "The First 3 Quests",
     duration: "Duration: 1-2 months",
@@ -106,7 +108,391 @@ const QuestsPage = ({ selectedField }) => {
         ]
       }
     ]
+    },
+    'mobile-dev': {
+      title: "Mobile Development Roadmap",
+      subtitle: "The First 3 Quests",
+      duration: "Duration: 1-2 months",
+      quests: [
+        {
+          id: 1,
+          title: "Mobile Foundations",
+          tech: "React Native Basics",
+          weeks: "Week 1-2",
+          icon: BookOpen,
+          color: "from-green-700 via-green-600 to-emerald-900",
+          goal: "Learn the fundamentals of mobile app development using React Native. Build cross-platform apps for iOS and Android.",
+          topics: [
+            "React Native Components",
+            "Navigation",
+            "Mobile UI/UX Patterns"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "React Native - The Practical Guide",
+              provider: "Udemy",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 2,
+          title: "Native Features",
+          tech: "Device APIs & Storage",
+          weeks: "Week 3-4",
+          icon: Code,
+          color: "from-green-700 via-teal-900 to-green-600",
+          goal: "Integrate native device features like camera, GPS, and local storage into your mobile apps.",
+          topics: [
+            "Async Storage",
+            "Camera & Media",
+            "Geolocation"
+          ],
+          resources: [
+            {
+              type: "Documentation",
+              title: "React Native Docs",
+              provider: "Official Documentation",
+              icon: FileText,
+              color: "text-blue-400"
+            }
+          ]
+        },
+        {
+          id: 3,
+          title: "App Deployment",
+          tech: "Publishing to Stores",
+          weeks: "Week 5",
+          icon: GitBranch,
+          color: "from-green-700 via-purple-900 to-green-600",
+          goal: "Learn how to build, test, and deploy your apps to the App Store and Google Play.",
+          topics: [
+            "App Store Guidelines",
+            "Google Play Console",
+            "App Signing & Security"
+          ],
+          resources: [
+            {
+              type: "Guide",
+              title: "Publishing to App Stores",
+              provider: "React Native",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        }
+      ]
+    },
+    'data-science': {
+      title: "Data Science & AI Roadmap",
+      subtitle: "The First 3 Quests",
+      duration: "Duration: 2-3 months",
+      quests: [
+        {
+          id: 1,
+          title: "Python for Data Science",
+          tech: "Python & NumPy",
+          weeks: "Week 1-2",
+          icon: BookOpen,
+          color: "from-purple-700 via-purple-600 to-pink-900",
+          goal: "Master Python programming and numerical computing with NumPy for data manipulation.",
+          topics: [
+            "Python Basics",
+            "NumPy Arrays",
+            "Data Structures"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "Python for Data Science",
+              provider: "Coursera",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 2,
+          title: "Data Analysis",
+          tech: "Pandas & Visualization",
+          weeks: "Week 3-4",
+          icon: Code,
+          color: "from-purple-700 via-pink-900 to-purple-600",
+          goal: "Learn to analyze and visualize data using Pandas and Matplotlib.",
+          topics: [
+            "Pandas DataFrames",
+            "Data Cleaning",
+            "Matplotlib & Seaborn"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "Data Analysis with Python",
+              provider: "freeCodeCamp",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 3,
+          title: "Machine Learning Intro",
+          tech: "Scikit-learn",
+          weeks: "Week 5-6",
+          icon: GitBranch,
+          color: "from-purple-700 via-indigo-900 to-purple-600",
+          goal: "Build your first machine learning models for classification and regression.",
+          topics: [
+            "Supervised Learning",
+            "Model Training",
+            "Prediction & Evaluation"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "Machine Learning Crash Course",
+              provider: "Google",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        }
+      ]
+    },
+    'cybersecurity': {
+      title: "Cybersecurity Roadmap",
+      subtitle: "The First 3 Quests",
+      duration: "Duration: 1-2 months",
+      quests: [
+        {
+          id: 1,
+          title: "Security Fundamentals",
+          tech: "Network Security Basics",
+          weeks: "Week 1-2",
+          icon: BookOpen,
+          color: "from-red-700 via-red-600 to-orange-900",
+          goal: "Understand core security concepts, threats, and defense mechanisms.",
+          topics: [
+            "CIA Triad",
+            "Network Protocols",
+            "Common Vulnerabilities"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "Introduction to Cybersecurity",
+              provider: "Cisco",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 2,
+          title: "Ethical Hacking",
+          tech: "Penetration Testing",
+          weeks: "Week 3-4",
+          icon: Code,
+          color: "from-red-700 via-orange-900 to-red-600",
+          goal: "Learn ethical hacking techniques to identify and fix security vulnerabilities.",
+          topics: [
+            "Reconnaissance",
+            "Exploitation",
+            "Security Testing Tools"
+          ],
+          resources: [
+            {
+              type: "Platform",
+              title: "TryHackMe",
+              provider: "Interactive Labs",
+              icon: Trophy,
+              color: "text-purple-400"
+            }
+          ]
+        },
+        {
+          id: 3,
+          title: "Cryptography",
+          tech: "Encryption & Security",
+          weeks: "Week 5",
+          icon: GitBranch,
+          color: "from-red-700 via-purple-900 to-red-600",
+          goal: "Master encryption, hashing, and secure communication protocols.",
+          topics: [
+            "Symmetric & Asymmetric Encryption",
+            "Hashing Algorithms",
+            "SSL/TLS"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "Cryptography I",
+              provider: "Stanford Online",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        }
+      ]
+    },
+    'cloud-devops': {
+      title: "Cloud & DevOps Roadmap",
+      subtitle: "The First 3 Quests",
+      duration: "Duration: 1-2 months",
+      quests: [
+        {
+          id: 1,
+          title: "Cloud Fundamentals",
+          tech: "AWS/Azure Basics",
+          weeks: "Week 1-2",
+          icon: BookOpen,
+          color: "from-blue-700 via-blue-600 to-indigo-900",
+          goal: "Learn cloud computing concepts and get started with major cloud platforms.",
+          topics: [
+            "Cloud Computing Models",
+            "AWS EC2 & S3",
+            "Cloud Architecture"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "AWS Cloud Practitioner",
+              provider: "AWS Training",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 2,
+          title: "Containerization",
+          tech: "Docker",
+          weeks: "Week 3-4",
+          icon: Code,
+          color: "from-blue-700 via-indigo-900 to-blue-600",
+          goal: "Master containerization with Docker for consistent application deployment.",
+          topics: [
+            "Docker Containers",
+            "Dockerfile",
+            "Container Orchestration"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "Docker Mastery",
+              provider: "Udemy",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 3,
+          title: "CI/CD Pipelines",
+          tech: "Automation",
+          weeks: "Week 5",
+          icon: GitBranch,
+          color: "from-blue-700 via-purple-900 to-blue-600",
+          goal: "Build automated deployment pipelines for continuous integration and delivery.",
+          topics: [
+            "GitHub Actions",
+            "Jenkins",
+            "Automated Testing"
+          ],
+          resources: [
+            {
+              type: "Documentation",
+              title: "GitHub Actions Docs",
+              provider: "GitHub",
+              icon: FileText,
+              color: "text-blue-400"
+            }
+          ]
+        }
+      ]
+    },
+    'game-dev': {
+      title: "Game Development Roadmap",
+      subtitle: "The First 3 Quests",
+      duration: "Duration: 2-3 months",
+      quests: [
+        {
+          id: 1,
+          title: "Game Engine Basics",
+          tech: "Unity Fundamentals",
+          weeks: "Week 1-2",
+          icon: BookOpen,
+          color: "from-yellow-700 via-yellow-600 to-red-900",
+          goal: "Learn Unity game engine basics and create your first 2D game.",
+          topics: [
+            "Unity Interface",
+            "GameObjects & Components",
+            "2D Physics"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "Unity Game Development",
+              provider: "Unity Learn",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 2,
+          title: "Game Programming",
+          tech: "C# Scripting",
+          weeks: "Week 3-4",
+          icon: Code,
+          color: "from-yellow-700 via-red-900 to-yellow-600",
+          goal: "Master C# programming for game logic, player controls, and game mechanics.",
+          topics: [
+            "C# Basics",
+            "Player Movement",
+            "Game State Management"
+          ],
+          resources: [
+            {
+              type: "Course",
+              title: "C# Programming for Unity",
+              provider: "Coursera",
+              icon: PlayCircle,
+              color: "text-emerald-400"
+            }
+          ]
+        },
+        {
+          id: 3,
+          title: "Game Design",
+          tech: "Level Design & Polish",
+          weeks: "Week 5-6",
+          icon: GitBranch,
+          color: "from-yellow-700 via-purple-900 to-yellow-600",
+          goal: "Learn game design principles, level design, and how to polish your game.",
+          topics: [
+            "Level Design",
+            "UI/UX for Games",
+            "Sound & Effects"
+          ],
+          resources: [
+            {
+              type: "Book",
+              title: "The Art of Game Design",
+              provider: "Jesse Schell",
+              icon: FileText,
+              color: "text-blue-400"
+            }
+          ]
+        }
+      ]
+    }
   };
+
+  // Get the current roadmap based on selected field, default to web-dev
+  const currentRoadmap = roadmaps[selectedField?.id] || roadmaps['web-dev'];
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -124,24 +510,24 @@ const QuestsPage = ({ selectedField }) => {
                 <Map className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-4xl font-bold text-white">{webDevRoadmap.title}</h1>
-                {/* <p className="text-blue-400 font-semibold">{webDevRoadmap.subtitle}</p> */}
+                <h1 className="text-4xl font-bold text-white">{currentRoadmap.title}</h1>
+                {/* <p className="text-blue-400 font-semibold">{currentRoadmap.subtitle}</p> */}
               </div>
             </div>
             {/* <div className="flex items-center space-x-2 text-gray-400">
               <Calendar className="w-4 h-4" />
-              <span className="text-sm">{webDevRoadmap.duration}</span>
+              <span className="text-sm">{currentRoadmap.duration}</span>
             </div> */}
           </div>
           
           <div className="text-right">
               <div className="flex items-center space-x-2 text-gray-400">
               <Calendar className="w-4 h-4" />
-              <span className="text-sm">{webDevRoadmap.duration}</span>
+              <span className="text-sm">{currentRoadmap.duration}</span>
             </div>
             {/* <div className="px-6 py-3 bg-quest-slate rounded-xl border border-blue-500/50 shadow-lg">
               <p className="text-sm text-gray-400 mb-1">Total Quests</p>
-              <p className="text-3xl font-bold text-white">{webDevRoadmap.quests.length}</p>
+              <p className="text-3xl font-bold text-white">{currentRoadmap.quests.length}</p>
             </div> */}
           </div>
         </div>
@@ -161,7 +547,7 @@ const QuestsPage = ({ selectedField }) => {
 
       {/* Quests */}
       <div className="space-y-8">
-        {webDevRoadmap.quests.map((quest, index) => {
+        {currentRoadmap.quests.map((quest, index) => {
           const QuestIcon = quest.icon;
           return (
             <motion.div
@@ -174,8 +560,8 @@ const QuestsPage = ({ selectedField }) => {
               {/* Quest Card */}
               <div className="bg-quest-slate rounded-2xl border border-gray-700 overflow-hidden shadow-2xl hover:border-slate-500 transition-all">
                 {/* Quest Header */}
-                <div className={`relative bg-gradient-to-r ${quest.color} p-6`}>
-                  <div className="relative z-10 flex items-center justify-between">
+              <div className={`relative bg-gradient-to-r ${quest.color} p-6`}>
+                    <div className="relative z-10 flex items-center justify-between">
                     {/* Left Side: Icon + Quest Number + Week */}
                     <div className="flex items-center space-x-4">
                       <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
@@ -272,7 +658,7 @@ const QuestsPage = ({ selectedField }) => {
               </div>
 
               {/* Connector Line (except for last quest) */}
-              {index < webDevRoadmap.quests.length - 1 && (
+              {index < currentRoadmap.quests.length - 1 && (
                 <div className="flex justify-center my-4">
                   <motion.div
                     initial={{ scaleY: 0 }}
