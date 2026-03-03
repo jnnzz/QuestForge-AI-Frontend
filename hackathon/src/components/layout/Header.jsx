@@ -12,7 +12,7 @@ const Header = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="sticky top-0 z-40 bg-quest-slate/95 backdrop-blur-md border-b border-gray-700 shadow-xl w-full"
+      className=" top-0 z-40  w-full"
     >
       <div className="flex items-center justify-end w-full px-4 py-4">
         {/* XP Progress and User Profile */}

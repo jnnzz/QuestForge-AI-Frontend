@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Upload, Loader2, FileText, X, Lock, CreditCard } from 'lucide-react';
+import { uploadSyllabus } from '../../api/syllabusApi';
 
 const SyllabusSync = ({ onAnalyze }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -62,15 +63,23 @@ const SyllabusSync = ({ onAnalyze }) => {
     if (selectedFile) {
       setIsScanning(true);
       
-      // Simulate PDF analysis time (no backend needed)
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      setIsScanning(false);
-      setHasUsedFreeTrial(true); // Mark free trial as used
-      
-      // Call parent callback with the file
-      if (onAnalyze) {
-        onAnalyze(selectedFile, { syllabusId: 'demo-' + Date.now() });
+      try {
+        // Upload PDF to backend for analysis
+        const result = await uploadSyllabus(selectedFile);
+        
+        setIsScanning(false);
+        
+        if (result.success) {
+          setHasUsedFreeTrial(true); // Mark free trial as used
+          
+          // Call parent callback with the file and analysis data
+          if (onAnalyze) {
+            onAnalyze(selectedFile, result.data);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to analyze syllabus:', error);
+        setIsScanning(false);
       }
     }
   };
