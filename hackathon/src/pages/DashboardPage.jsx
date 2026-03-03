@@ -216,7 +216,7 @@ const Dashboard = ({ selectedField }) => {
             <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 text-left">Welcome back, {userName}!</h1>
             <p className="text-gray-400 text-left">Ready to continue your learning journey in {fieldName}?</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 bg-quest-slate rounded-xl px-4 py-3 lg:px-6 lg:py-4 border border-gray-700">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-3 bg-quest-slate rounded-xl px-4 py-3 lg:px-6 lg:py-4 border border-gray-700">
             {quickStats.map((stat, index) => (
               <div key={stat.label} className={`flex items-center space-x-2 ${index > 0 ? 'md:pl-4 md:border-l md:border-gray-700' : ''}`}>
                 <stat.icon className={`w-5 h-5 ${stat.color}`} />
@@ -226,7 +226,7 @@ const Dashboard = ({ selectedField }) => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </motion.div>
 
